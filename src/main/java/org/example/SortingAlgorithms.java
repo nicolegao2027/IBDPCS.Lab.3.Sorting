@@ -3,8 +3,8 @@ package org.example;
 /**
  * Sorting Algorithms Implementation
  *
- * Name: _____________________
- * Date: _____________________
+ * Name: Nicole Gao
+ * Date: Tuesday, 28 October, 2025
  *
  * This class implements bubble sort and selection sort algorithms.
  * Complete the implementation and analyze the time complexity.
@@ -17,8 +17,8 @@ public class SortingAlgorithms {
      * is larger than the current element (assuming you are sorting lowest to highest).
      * If the items are in the wrong order then they swap.
      *
-     * Time Complexity: O(___) - explain: _________________________________
-     * Space Complexity: O(___) - explain: ________________________________
+     * Time Complexity: O(n²) - explain: Bubble sort uses nested loops
+     * Space Complexity: O(1) - explain: No extra data structures like arrays are created during the sorting process.
      *
      * @param arr The array to be sorted
      */
@@ -33,31 +33,35 @@ public class SortingAlgorithms {
 
         // Outer loop for passes
         for (int i = 0; i < n - 1; i++) {
-
             // Add a boolean flag to optimize (optional enhancement)
-            // boolean swapped = false;
-
+            boolean swapped = false;
             // Inner loop for comparisons in each pass
             // Note: Why do we use (n - i - 1)? Think about what happens after each pass
 
             // YOUR CODE HERE
-
-
-
-
+            for(int j=0;j<n-i-1;j++){
+                if(arr[j]>arr[j+1]){
+                    int a=arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=a;
+                }
+                swapped=true;
+            }
             // Optional optimization: if no swaps occurred, array is sorted
-            // if (!swapped) break;
+            if(!swapped){
+                break;
+            }
         }
     }
 
     /**
-     * Selection Sort Algorithm  
+     * Selection Sort Algorithm
      * The selection sort algorithm uses a variable to track the index of the highest value
      * element (sorting lowest to highest). At the end of the pass, the highest value is
      * moved into the correct space.
      *
-     * Time Complexity: O(___) - explain: _________________________________
-     * Space Complexity: O(___) - explain: ________________________________
+     * Time Complexity: O(n²) - explain: Selection Sort involves nested loops.
+     * Space Complexity: O(1) - explain: No extra data structures like arrays are created during the sorting process.
      *
      * @param arr The array to be sorted
      */
@@ -68,19 +72,23 @@ public class SortingAlgorithms {
         // Hint 3: Move the boundary between sorted and unsorted portions
 
         int n = arr.length;
-
         // One by one move boundary of unsorted subarray
         for (int i = 0; i < n - 1; i++) {
 
             // Find the minimum element in unsorted array
             // YOUR CODE HERE
-
+            int a=i;
+            for(int j=i+1; j<n;j++){
+                if(arr[j]<arr[a]){
+                    a=j;
+                }
+            }
 
 
 
             // Swap the found minimum element with the first element
             // YOUR CODE HERE
-
+            swap(arr, a, i);
         }
     }
 
@@ -95,7 +103,10 @@ public class SortingAlgorithms {
         // Remember: You need a temporary variable
 
         // YOUR CODE HERE
-
+        int b=0;
+        b=arr[i];
+        arr[i]=arr[j];
+        arr[j]=b;
 
     }
 
@@ -195,13 +206,13 @@ public class SortingAlgorithms {
         System.out.println("\n=== Performance Analysis ===");
         System.out.println("Complete the following analysis:");
         System.out.println("1. Which algorithm performed fewer comparisons on an already sorted array?");
-        System.out.println("   Answer: _____________");
+        System.out.println("   Answer: Bubble sort, because optimized bubble sort detects no swaps in the first pass and stops, making only n-1 comparisons. Selection sort always makes n(n-1)/2 comparisons regardless.");
         System.out.println("2. Which algorithm performed fewer swaps on a reverse sorted array?");
-        System.out.println("   Answer: _____________");
-        System.out.println("3. What is the worst-case time complexity for bubble sort? ______");
-        System.out.println("4. What is the worst-case time complexity for selection sort? ______");
-        System.out.println("5. What is the best-case time complexity for bubble sort? ______");
-        System.out.println("6. What is the best-case time complexity for selection sort? ______");
+        System.out.println("   Answer: Selection sort, because it makes exactly n-1 swaps in all cases. Bubble sort swaps every adjacent pair in reverse sorted array, making approximately n²/2 swaps.");
+        System.out.println("3. What is the worst-case time complexity for bubble sort? ___O(n²)___");
+        System.out.println("4. What is the worst-case time complexity for selection sort? ___O(n²)___");
+        System.out.println("5. What is the best-case time complexity for bubble sort? ___O(n)___");
+        System.out.println("6. What is the best-case time complexity for selection sort? ___O(n²)___");
 
         System.out.println();
 
@@ -211,23 +222,23 @@ public class SortingAlgorithms {
         System.out.println("Array: [5, 2, 8, 1, 9]");
         System.out.println();
         System.out.println("Bubble Sort Trace:");
-        System.out.println("Pass 1: ________________________________");
-        System.out.println("Pass 2: ________________________________");
-        System.out.println("Pass 3: ________________________________");
-        System.out.println("Pass 4: ________________________________");
+        System.out.println("Pass 1: [2, 5, 1, 8, 9]");
+        System.out.println("Pass 2: [2, 1, 5, 8, 9]");
+        System.out.println("Pass 3: [1, 2, 5, 8, 9]");
+        System.out.println("Pass 4: [1, 2, 5, 8, 9]");
         System.out.println();
         System.out.println("Selection Sort Trace:");
-        System.out.println("Pass 1: ________________________________");
-        System.out.println("Pass 2: ________________________________");
-        System.out.println("Pass 3: ________________________________");
-        System.out.println("Pass 4: ________________________________");
+        System.out.println("Pass 1: [1, 2, 8, 5, 9]");
+        System.out.println("Pass 2: [1, 2, 8, 5, 9]");
+        System.out.println("Pass 3: [1, 2, 5, 8, 9]");
+        System.out.println("Pass 4: [1, 2, 5, 8, 9]");
         System.out.println();
         System.out.println("2. Explain why bubble sort can be optimized but selection sort cannot:");
-        System.out.println("_________________________________________________________");
-        System.out.println("_________________________________________________________");
+        System.out.println("Bubble sort can be optimized by adding a boolean flag to check when no swaps occur in a pass, indicating the array is already sorted.");
+        System.out.println("Selection sort cannot have this optimization because it must scan the entire unsorted portion in every pass to find the minimum element, regardless of whether the array is partially sorted.");
         System.out.println("3. Explain how you would implement this optimisation within your bubble sort algorithm:");
-        System.out.println("_________________________________________________________");
-        System.out.println("_________________________________________________________");
+        System.out.println("Add a boolean flag initialized to false at the start of each pass. Set it to true whenever a swap occurs.");
+        System.out.println("If after a complete pass the flag remains false, the array is sorted and the algorithm can terminate early.");
     }
     
 }
